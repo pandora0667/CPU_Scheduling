@@ -1,6 +1,7 @@
 package wisoft.fcfs.scheduling;
 
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 // TODO Final 변수 사용하기
@@ -12,7 +13,8 @@ public class Main {
   private static final Scanner scanner = new Scanner(System.in);
 
   public static void main(String[] args) {
-    System.out.println("    —------—  CPU 'First In First Out' Scheduling in JAVA  —--------");
+    Kernel kernel = new Kernel();
+    System.out.println("    —------—  CPU  Scheduling implementation in JAVA  —--------");
     boolean run = true;
 
     while (run) {
@@ -20,22 +22,31 @@ public class Main {
 
       try {
         int input = scanner.nextInt();
-
         switch (input) {
-          case Selector.NEW_PROCESS:
-            Process process  = new Process("P1", 1, 1, 1);
-            System.out.println(process.getBustTime());
+          case Declarations.NEW_PROCESS:
+            System.out.println("몇개의 프로세스를 생성할 것인가요?");
+            final int processesNumber = scanner.nextInt();
+            if (kernel.create(processesNumber)) {
+              System.out.println("성공적으로 생성되었습니다.");
+            }
             break;
-          case Selector.PROCESS_LIST:
+          case Declarations.PROCESS_LIST:
+            LinkedList<Process> list = kernel.confirm();
+            if (list != null) {
+              for (Process process : list)
+                System.out.println(process.getWork() +", bustTime : "+ process.getBustTime() +",  turnAroundTime : " + process.getTurnAroundTime());
+              break;
+            }
+            System.out.println("큐에 생성된 프로세스 리스트가 없습니다.");
             break;
-          case Selector.SCHEDULING:
+          case Declarations.SCHEDULING:
             SchedulingKinds();
             break;
-          case Selector.PROGRESS:
+          case Declarations.PROGRESS:
             break;
-          case Selector.CHECK_RESULT:
+          case Declarations.CHECK_RESULT:
             break;
-          case Selector.EXIT:
+          case Declarations.EXIT:
             run = false;
             break;
           default:
@@ -53,21 +64,21 @@ public class Main {
       int input = scanner.nextInt();
 
       switch (input) {
-        case Selector.FCFS:
+        case Declarations.FCFS:
           break;
-        case Selector.SJF:
+        case Declarations.SJF:
           System.out.println("현재 구성중입니다");
           break;
-        case Selector.ROUND_ROBIN:
+        case Declarations.ROUND_ROBIN:
           System.out.println("현재 구성중입니다");
           break;
-        case Selector.PRIORITY_SCHEDULING:
+        case Declarations.PRIORITY_SCHEDULING:
           System.out.println("현재 구성중입니다");
           break;
-        case Selector.LSW_SCHEDULING:
+        case Declarations.LSW_SCHEDULING:
           System.out.println("현재 구성중입니다");
           return;
-        case Selector.EXIT:
+        case Declarations.EXIT:
           return;
         default:
           System.out.println("해당하는 메뉴가 없습니다.");
