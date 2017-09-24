@@ -19,4 +19,10 @@ public class Declarations {
 
   // 프로세스 작업이름 저장
   static final HashMap<Integer, String> processWork = new HashMap<>();
+
+  static void clearScreen() {
+    for (int i=0; i<20; i++) {
+      System.out.println("");
+    }
+  }
 }
