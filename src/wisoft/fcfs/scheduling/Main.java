@@ -73,29 +73,9 @@ public class Main {
       Declarations.clearScreen();
       System.out.println("| 1. FCFS | 2. SJF | 3. ROUND_ROBIN | 4. PRIORITY_SCHEDULING | 5. LSW_SCHEDULING | 0. EXIT |");
       final int kinds = scanner.nextInt();
-      kernel.executionScheduling(kinds);
 
-      /*
-      switch (input) {
-        case Declarations.FCFS:
-          break;
-        case Declarations.SJF:
-          System.out.println("현재 구성중입니다");
-          break;
-        case Declarations.ROUND_ROBIN:
-          System.out.println("현재 구성중입니다");
-          break;
-        case Declarations.PRIORITY_SCHEDULING:
-          System.out.println("현재 구성중입니다");
-          break;
-        case Declarations.LSW_SCHEDULING:
-          System.out.println("현재 구성중입니다");
-          return;
-        case Declarations.EXIT:
-          return;
-        default:
-          System.out.println("해당하는 메뉴가 없습니다.");
-      }*/
+      if (kinds >= Declarations.FCFS && kinds <= Declarations.LSW_SCHEDULING)
+        kernel.executionScheduling(kinds);
 
     } catch (InputMismatchException error) {
       System.out.println("올바르지 않은 형식이 입력되었습니다.");

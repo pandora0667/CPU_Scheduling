@@ -5,37 +5,36 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 public class ProcessManagement {
-  private LinkedList<Process> processes;
-  private Random random;
-  private int turnAroundTime;
 
   public ProcessManagement() {
-    this.processes = new LinkedList<>();
-    this.random = new Random();
-    this.turnAroundTime = 0;
   }
 
   public boolean init(final int processesNumber) {
     IntStream.range(0, processesNumber)
-        .forEach(i -> processes.add(generateProcessInformation()));
+        .forEach(i -> Declarations.setProcess(generateProcessInformation()));
 
-    processes.getFirst().setTurnAroundTime(processes.getFirst().getBustTime());
+    try {
+      LinkedList<Process> tmpProcesses = Declarations.getProcessesList();
+      if (tmpProcesses == null) throw new Exception();
+      tmpProcesses.getFirst().setTurnAroundTime(tmpProcesses.getFirst().getBustTime());
 
-    for (int i=1; i<processes.size(); i++) {
-      turnAroundTime += processes.get(i-1).getBustTime();
-      processes.get(i).setTurnAroundTime(turnAroundTime + processes.get(i).getBustTime());
+      int turnAroundTime = 0;
+      for (int i = 1; i < tmpProcesses.size(); i++) {  // 한번 초기화 되어있어도 처음부터 처리함. 비효율적임.
+        turnAroundTime += tmpProcesses.get(i - 1).getBustTime();
+        tmpProcesses.get(i).setTurnAroundTime(turnAroundTime + tmpProcesses.get(i).getBustTime());
+      }
+      Declarations.setProcessList(tmpProcesses);
+    } catch (Exception e) {
+      System.out.println("프로세스가 정상적으로 생성되지 않아 처리할 수 없습니다.");
     }
-    return !processes.isEmpty();
-  }
 
-  public LinkedList<Process> confirm() {
-    if (processes.isEmpty()) return null;
-    return processes;
+    return !Declarations.processes.isEmpty(); //TODO 이부분이 조금 이상함.
   }
 
   private Process generateProcessInformation() {
+    Random random = new Random();
     final String work = Declarations.processWork.get(random.nextInt(10));
-    final int bustTime = random.nextInt(10)+1;
+    final int bustTime = random.nextInt(10) + 1;
     final int priority = random.nextInt(3);
 
     return new Process(work, bustTime, priority);

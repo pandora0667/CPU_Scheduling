@@ -4,9 +4,11 @@ import java.util.LinkedList;
 
 public class Kernel {
   private ProcessManagement processManagement;
+  private Scheduler scheduler;
 
   public Kernel() {
     processManagement = new ProcessManagement();
+    scheduler = new Scheduler();
     workInit();
   }
 
@@ -15,34 +17,11 @@ public class Kernel {
   }
 
   public LinkedList<Process> confirm() {
-    return processManagement.confirm();
+    return Declarations.getProcessesList();
   }
 
   public void executionScheduling(final int kinds) {
-    System.out.println("처리중입니다.");
-
-
-    switch (kinds) {
-      case Declarations.FCFS:
-        break;
-      case Declarations.SJF:
-        System.out.println("현재 구성중입니다");
-        break;
-      case Declarations.ROUND_ROBIN:
-        System.out.println("현재 구성중입니다");
-        break;
-      case Declarations.PRIORITY_SCHEDULING:
-        System.out.println("현재 구성중입니다");
-        break;
-      case Declarations.LSW_SCHEDULING:
-        System.out.println("현재 구성중입니다");
-        return;
-      case Declarations.EXIT:
-        return;
-      default:
-        System.out.println("해당하는 메뉴가 없습니다.");
-    }
-
+    scheduler.execution(kinds);
   }
 
   private void workInit() {
