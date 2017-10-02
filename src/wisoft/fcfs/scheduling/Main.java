@@ -4,6 +4,9 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import static wisoft.fcfs.scheduling.Declarations.*;
+
+
 // TODO Final 변수 사용하기
 // TODO GANTT CHART
 // TODO Average Time
@@ -24,7 +27,7 @@ public class Main {
         final int input = scanner.nextInt();
         switch (input) {
 
-          case Declarations.NEW_PROCESS:
+          case NEW_PROCESS:
             Declarations.clearScreen();
             System.out.println("몇개의 프로세스를 생성할 것인가요?");
             final int processesNumber = scanner.nextInt();
@@ -33,28 +36,28 @@ public class Main {
             }
             break;
 
-          case Declarations.PROCESS_LIST:
+          case PROCESS_LIST:
             Declarations.clearScreen();
             LinkedList<Process> list = kernel.confirm();
             if (list != null) {
               for (Process process : list)
-                System.out.println(process.getWork() +", bustTime : "+ process.getBustTime() +",  turnAroundTime : " + process.getTurnAroundTime());
+                System.out.println(process.getWork() +", bustTime : "+ process.getBurstTime() +",  turnAroundTime : " + process.getTurnAroundTime());
               break;
             }
             System.out.println("큐에 생성된 프로세스 리스트가 없습니다.");
             break;
 
-          case Declarations.SCHEDULING:
+          case SCHEDULING:
             SchedulingKinds();
             break;
 
-          case Declarations.PROGRESS:
+          case PROGRESS:
             break;
 
-          case Declarations.CHECK_RESULT:
+          case CHECK_RESULT:
             break;
 
-          case Declarations.EXIT:
+          case EXIT:
             run = false;
             break;
 

@@ -13,15 +13,15 @@ public class ProcessManagement {
     IntStream.range(0, processesNumber)
         .forEach(i -> Declarations.setProcess(generateProcessInformation()));
 
-    try {
+    try { //TODO FCFS에만 적용되는 일
       LinkedList<Process> tmpProcesses = Declarations.getProcessesList();
       if (tmpProcesses == null) throw new Exception();
-      tmpProcesses.getFirst().setTurnAroundTime(tmpProcesses.getFirst().getBustTime());
+      tmpProcesses.getFirst().setTurnAroundTime(tmpProcesses.getFirst().getBurstTime());
 
-      int turnAroundTime = 0;
+      int turnAroundTime = 0;  // totalTime
       for (int i = 1; i < tmpProcesses.size(); i++) {  // 한번 초기화 되어있어도 처음부터 처리함. 비효율적임.
-        turnAroundTime += tmpProcesses.get(i - 1).getBustTime();
-        tmpProcesses.get(i).setTurnAroundTime(turnAroundTime + tmpProcesses.get(i).getBustTime());
+        turnAroundTime += tmpProcesses.get(i - 1).getBurstTime();
+        tmpProcesses.get(i).setTurnAroundTime(turnAroundTime + tmpProcesses.get(i).getBurstTime());
       }
       Declarations.setProcessList(tmpProcesses);
     } catch (Exception e) {

@@ -1,5 +1,8 @@
 package wisoft.fcfs.scheduling;
 
+import static wisoft.fcfs.scheduling.Declarations.*;
+
+
 public class Scheduler {
   private Runnable runnable;
 
@@ -7,25 +10,25 @@ public class Scheduler {
   }
 
   public void execution(int kinds) {
-
+    // todo 스케줄러가 종료될때까지 스케줄러 실행 금지 trun변수나 등등...
     switch (kinds) {
-      case Declarations.FCFS:
+      case FCFS:
         runnable = Scheduler::fcfsScheduler;
         new Thread(runnable).start();
         break;
-      case Declarations.SJF:
+      case SJF:
         runnable = Scheduler::sjfScheduler;
         new Thread(runnable).start();
         break;
-      case Declarations.ROUND_ROBIN:
+      case ROUND_ROBIN:
         runnable = Scheduler::RRScheduler;
         new Thread(runnable).start();
         break;
-      case Declarations.PRIORITY_SCHEDULING:
+      case PRIORITY_SCHEDULING:
         runnable = Scheduler::priorityScheduler;
         new Thread(runnable).start();
         break;
-      case Declarations.LSW_SCHEDULING:
+      case LSW_SCHEDULING:
         runnable = Scheduler::lswScheduler;
         new Thread(runnable).start();
         return;

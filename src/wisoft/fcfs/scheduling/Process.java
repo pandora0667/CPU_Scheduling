@@ -2,7 +2,7 @@ package wisoft.fcfs.scheduling;
 // TODO Process Information
 public class Process {
   private final String work;
-  private final int bustTime;
+  private final int burstTime;
   private final int priority;
   private int turnAroundTime;
   private int waitTime;
@@ -11,7 +11,7 @@ public class Process {
 
   public Process(final String work, final int bustTime, final int priority) {
     this.work = work;
-    this.bustTime = bustTime;
+    this.burstTime = bustTime;
     this.priority = priority;
     this.turnAroundTime = 0;
     this.waitTime = 0;
@@ -29,8 +29,8 @@ public class Process {
     return work;
   }
 
-  public int getBustTime() {
-    return bustTime;
+  public int getBurstTime() {
+    return burstTime;
   }
 
   public int getTurnAroundTime() {
