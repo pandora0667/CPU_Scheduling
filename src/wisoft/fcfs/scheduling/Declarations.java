@@ -1,4 +1,5 @@
 package wisoft.fcfs.scheduling;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -25,19 +26,22 @@ public class Declarations {
     }
   }
 
-  // TODO process 공용변수????, 이게 맞는 방향인가?
-  protected static LinkedList<Process> processes = new LinkedList<>();
+  private static LinkedList<Process> processes = new LinkedList<>();
 
   static synchronized void setProcess(final Process process) {
     processes.add(process);
   }
 
-//  static synchronized Process getProcess() {
-//    if (!processes.isEmpty())
-//      return processes.poll();
-//
-//    return null;
-//  }
+  static boolean processesIsEmpty() {
+    return processes.isEmpty();
+  }
+
+  static synchronized Process getProcess() {
+    if (!processes.isEmpty())
+      return processes.poll();
+
+    return null;
+  }
 
   static synchronized void setProcessList(LinkedList<Process> processList) {
     processes = processList;
